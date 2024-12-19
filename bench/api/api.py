@@ -1,5 +1,6 @@
 # Copyright (c) OpenComputeLab. All Rights Reserved.
 
+import os
 import argparse
 from bench.common import (
     Settings,
@@ -34,6 +35,13 @@ def parse_args():
         "-c",
         "--cases",
         help="the cases to run, split by `,`",
+        type=str,
+        default=None,
+    )
+    parser.add_argument(
+        "-sp",
+        "--selfop",
+        help="use self define operation",
         type=str,
         default=None,
     )
@@ -80,6 +88,8 @@ def parse_args():
         args.stages = [int(st) for st in args.stages]
         if 1 not in args.stages:
             args.stages = [1] + args.stages
+    if args.selfop is not None:
+        os.environ["selfop"] = "True"
     return args
 
 

@@ -398,6 +398,8 @@ class Engine(object):
                     self.run_per_iter(executer, func_args[0], sample_config)
                     time_cost = time.time() - start
                     profiler.step()
+                if "selfop" in os.environ:
+                    executer.selfop(profiler)
                 profile_data = profiler.key_averages().table(sort_by="self_cuda_time_total", row_limit=-1)
             else:
                 start = time.time()

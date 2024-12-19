@@ -70,10 +70,11 @@ class BaseCaseExecuter(AbstractExecuter):
         args_adaptor(Function): Sample args adaptor function, 
             it transform numpy inputs to tensor.
     """
-    def __init__(self, core_func, args_adaptor):
+    def __init__(self, core_func, args_adaptor, extra_func = None):
         self._origin_func = core_func
         self._args_adaptor = args_adaptor
         self._execute_func = None
+        self._extra_func = extra_func
 
     def adapt_args(self, np_args):
         """Transform sample numpy args to tensor.
@@ -95,6 +96,9 @@ class BaseCaseExecuter(AbstractExecuter):
         assert isinstance(func_args, list)
         assert self._execute_func is not None
         return self._execute_func(*func_args)
+    
+    def selfop(self, args):
+        return self._extra_func(args)
 
     def synchronize(self):
         pass

@@ -77,8 +77,8 @@ class TorchAPIExecuter(BaseCaseExecuter):
         args_adaptor(Function): Sample args adaptor function, 
             it transform numpy inputs to tensor.
     """
-    def __init__(self, core_func, args_generator):
-        super().__init__(core_func, args_generator)
+    def __init__(self, core_func, args_generator, extra_func = None):
+        super().__init__(core_func, args_generator, extra_func)
         self._timeline_saving_path = None
 
     def generate_args(self, case, requires_grad, np_args_generator):
@@ -253,8 +253,8 @@ class TorchExecuter(TorchAPIExecuter):
         args_adaptor(Function): Sample args adaptor function, 
             it transform numpy inputs to tensor.
     """
-    def __init__(self, core_func, args_generator):
-        super().__init__(core_func, args_generator)
+    def __init__(self, core_func, args_generator, extra_func = None):
+        super().__init__(core_func, args_generator, extra_func)
         self._stage_args = None
 
     def prepare(self, stage_mode):
